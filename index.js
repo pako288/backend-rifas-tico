@@ -79,7 +79,7 @@ const generateItems = () => {
     const newItems = [];
     for (let i = 1; i <= numerosInitialValue; i++) {
       newItems.push({
-        id: 1,
+        id: "1",
         value: String(i).padStart(4, "0"),
         cantidad: 1,
         precio: 20,
