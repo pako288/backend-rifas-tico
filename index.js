@@ -1,7 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const { check } = require("express-validator");
-const { model, Schema, connect } = require("mongoose");
+const { model, Schema, } = require("mongoose");
 const cors = require("cors");
 const { validarCampos } = require("./middlewares/validar-campos.js");
 
@@ -29,7 +29,6 @@ const dbConnection = async () => {
     console.log(`DB Online`);
   } catch (error) {
     console.log(error);
-    throw new Error("Error al inicializar Dbase");
   }
 };
 
