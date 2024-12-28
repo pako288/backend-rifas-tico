@@ -20,7 +20,20 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-connect(process.env.BD_CNN, {});
+
+const dbConnection = async () => {
+  try {
+     await mongoose.connect(process.env.BD_CNN, {
+    });
+
+    console.log(`DB Online`);
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error al inicializar Dbase");
+  }
+};
+
+dbConnection();
 console.log(`DB Online`, `${process.env.BD_CNN}`);
 
 const Usuarios = Schema({
