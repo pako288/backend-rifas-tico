@@ -9,6 +9,20 @@ const PORT = process.env.PORT || 4005;
 
 const app = express();
 
+
+const dbConnection = async () => {
+    try {
+       await mongoose.connect(process.env.BD_CNN, {
+      });
+  
+      console.log(`DB Online`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  dbConnection();
+  console.log(`DB Online`, `${process.env.BD_CNN}`);
 app.use(express.json());
 app.use(cors());
 
@@ -21,19 +35,7 @@ app.use(cors());
 // app.use(cors(corsOptions));
 
 
-const dbConnection = async () => {
-  try {
-     await mongoose.connect(process.env.BD_CNN, {
-    });
 
-    console.log(`DB Online`);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-dbConnection();
-console.log(`DB Online`, `${process.env.BD_CNN}`);
 
 const Usuarios = Schema({
   name: {
