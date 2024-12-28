@@ -63,28 +63,29 @@ const itemSchema = Schema({
 const Item = model("Item", itemSchema);
 
 const numerosInitialValue = 20;
+const generateItems = () => {
+    const newItems = [];
+    for (let i = 1; i <= numerosInitialValue; i++) {
+      newItems.push({
+        id: crypto.randomUUID(),
+        value: String(i).padStart(4, "0"),
+        cantidad: 1,
+        precio: 20,
+      });
+    }
+    return newItems;
+  };
+
+  const numeross = generateItems();
 // Endpoint para generar y guardar los elementos
 app.get("/items", async (req, res) => {
   try {
     console.log(`Entro en el try`);
 
-    const generateItems = () => {
-      const newItems = [];
-      for (let i = 1; i <= numerosInitialValue; i++) {
-        newItems.push({
-          id: crypto.randomUUID(),
-          value: String(i).padStart(4, "0"),
-          cantidad: 1,
-          precio: 20,
-        });
-      }
-      return newItems;
-    };
-
-    const numeross = generateItems(); // Genera los elementos
+     // Genera los elementos
 
     // Guarda los elementos en la base de datos
-    // await Item.insertMany(numeross);
+    await Item.insertMany(numeross);
     res.status(200).json({
       message: `Server funcionando, ${numerosInitialValue} items generados, ${numeross.length} items guardados`,
       numeross,
