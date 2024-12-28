@@ -76,7 +76,7 @@ const itemSchema = Schema({
     
   
      res.status(200).json({
-        message: `Server funcionando`,
+        message: `Server funcionando, ${numerosInitialValue} items generados`,
       }); // Devuelve los elementos generados en formato JSON
     } catch (error) {
       console.error(error);
