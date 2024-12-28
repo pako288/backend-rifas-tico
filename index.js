@@ -12,13 +12,13 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const corsOptions = {
-  origin: "tests-production-151a.up.railway.app/", // Cambia esto por tu dominio
-  methods: "GET,POST,PUT,DELETE,OPTIONS",
-  allowedHeaders: "Content-Type,Authorization",
-};
+// const corsOptions = {
+//   origin: "tests-production-151a.up.railway.app/", // Cambia esto por tu dominio
+//   methods: "GET,POST,PUT,DELETE,OPTIONS",
+//   allowedHeaders: "Content-Type,Authorization",
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 
 const dbConnection = async () => {
@@ -98,7 +98,7 @@ app.get("/items", async (req, res) => {
   
       if (existingItems.length > 0) {
         // Si ya existen, devuelve los elementos existentes
-        return res.status(200).json({message: `Existen ${existingItems.length} elementos`});
+        return res.status(200).json(existingItems);
       }
 
     const generateItems = () => {
@@ -163,6 +163,17 @@ app.post(
     }
   }
 );
+
+app.get("/api/users", async (req, res) => {
+
+  try {
+    const users = await Users.find(); 
+    res.status(201).json(users); 
+  } catch (error) {
+    console.error("Error al obtener usuarios:", error);
+    res.status(500).json({ message: "Error al obtener usuarios" });
+  }
+});
 
 app.get("/ticketselected", async (req, res) => {
   try {
