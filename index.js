@@ -13,6 +13,14 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 
+const corsOptions = {
+    origin: 'tests-production-151a.up.railway.app/', // Cambia esto por tu dominio
+    methods: 'GET,POST,PUT,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type,Authorization',
+};
+
+app.use(cors(corsOptions));
+
 connect(process.env.BD_CNN, {
 });
 console.log(`DB Online`, `${process.env.BD_CNN}`);
