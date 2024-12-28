@@ -1,7 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const { check } = require("express-validator");
-const { model, Schema, } = require("mongoose");
+const { model, Schema, mongoose } = require("mongoose");
 const cors = require("cors");
 const { validarCampos } = require("./middlewares/validar-campos.js");
 
@@ -79,7 +79,7 @@ const generateItems = () => {
     const newItems = [];
     for (let i = 1; i <= numerosInitialValue; i++) {
       newItems.push({
-        id: "1",
+        id: crypto.randomUUID(),
         value: String(i).padStart(4, "0"),
         cantidad: 1,
         precio: 20,
@@ -88,14 +88,35 @@ const generateItems = () => {
     return newItems;
   };
 
-  const numeross = generateItems();
+
 // Endpoint para generar y guardar los elementos
 app.get("/items", async (req, res) => {
   try {
     console.log(`Entro en el try`);
 
-     // Genera los elementos
+    const existingItems = await Item.find();
+  
+      if (existingItems.length > 0) {
+        // Si ya existen, devuelve los elementos existentes
+        return res.status(200).json({message: `Existen ${existingItems.length} elementos`});
+      }
 
+    const generateItems = () => {
+        const newItems = [];
+        for (let i = 1; i <= numerosInitialValue; i++) {
+          newItems.push({
+            id: crypto.randomUUID(),
+            value: String(i).padStart(4, "0"),
+            cantidad: 1,
+            precio: 20,
+          });
+        }
+        return newItems;
+      };
+
+
+     // Genera los elementos
+     const numeross = generateItems();
     // Guarda los elementos en la base de datos
     await Item.insertMany(numeross);
     res.status(200).json({
