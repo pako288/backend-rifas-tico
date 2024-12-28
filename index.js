@@ -22,7 +22,7 @@ const dbConnection = async () => {
   };
   
   dbConnection();
-  console.log(`DB Online`, `${process.env.BD_CNN}`);
+  console.log(`DB Online`);
 app.use(express.json());
 app.use(cors());
 
