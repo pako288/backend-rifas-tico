@@ -73,12 +73,7 @@ const itemSchema = Schema({
   app.get("/items", async (req, res) => {
   
     try {
-      const existingItems = await Item.find();
-  
-      if (existingItems.length > 0) {
-        // Si ya existen, devuelve los elementos existentes
-        return res.status(200).json({message: `Server en existing items`});
-      }
+    
   
      res.status(200).json({
         message: `Server funcionando`,
