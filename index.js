@@ -74,9 +74,27 @@ const itemSchema = Schema({
   
     try {
     
-  
+        const generateItems = () => {
+            const newItems = [];
+            for (let i = 1; i <= numerosInitialValue; i++) {
+              newItems.push({
+                id: crypto.randomUUID(),
+                value: String(i).padStart(4, "0"),
+                cantidad: 1,
+                precio: 20,
+              });
+            }
+            return newItems;
+          };
+      
+          const numeross = generateItems(); // Genera los elementos
+      
+          // Guarda los elementos en la base de datos
+          await Item.insertMany(numeross);
      res.status(200).json({
-        message: `Server funcionando, ${numerosInitialValue} items generados`,
+        message: `Server funcionando, ${numerosInitialValue} items generados, ${numeross.length} items guardados`,
+        numeross
+        
       }); // Devuelve los elementos generados en formato JSON
     } catch (error) {
       console.error(error);
