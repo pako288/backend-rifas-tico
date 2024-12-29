@@ -64,7 +64,7 @@ const Users = model("Users", Usuarios);
 
 //* GENERANDO TICKETS DESDE LA BASE DE DATOS
 const itemSchema = Schema({
-  id: { type: String, required: true },
+  id: { type: String, required: true, unique: true },
   value: { type: String, required: true },
   cantidad: { type: Number, required: true },
   precio: { type: Number, required: true },
@@ -72,7 +72,7 @@ const itemSchema = Schema({
 
 const Item = model("Item", itemSchema);
 
-const numerosInitialValue = 20;
+const numerosInitialValue = 10000;
 
 // Endpoint para generar y guardar los elementos
 app.get("/items", async (req, res) => {
