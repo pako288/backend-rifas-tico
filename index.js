@@ -3,6 +3,7 @@ require("dotenv").config();
 const { check } = require("express-validator");
 const { model, Schema, mongoose } = require("mongoose");
 const cors = require("cors");
+const crypto = require("crypto");
 const { validarCampos } = require("./middlewares/validar-campos.js");
 
 const PORT = process.env.PORT || 4005;
@@ -10,19 +11,17 @@ const PORT = process.env.PORT || 4005;
 const app = express();
 
 const dbConnection = async () => {
-    try {
-        await mongoose.connect(process.env.BD_CNN, {
-        });
-        
-        console.log(`DB Online`);
-    } catch (error) {
-        console.log(error);
-    }
+  try {
+    await mongoose.connect(process.env.BD_CNN, {});
+
+    console.log(`DB Online`);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-  
-  dbConnection();
-  console.log(`DB Online`);
+dbConnection();
+console.log(`DB Online`);
 app.use(express.json());
 app.use(cors());
 
@@ -33,9 +32,6 @@ app.use(cors());
 // };
 
 // app.use(cors(corsOptions));
-
-
-
 
 const Usuarios = Schema({
   name: {
@@ -68,7 +64,7 @@ const Users = model("Users", Usuarios);
 
 //* GENERANDO TICKETS DESDE LA BASE DE DATOS
 const itemSchema = Schema({
-  id: { type: String, required: true, },
+  id: { type: String, required: true },
   value: { type: String, required: true },
   cantidad: { type: Number, required: true },
   precio: { type: Number, required: true },
@@ -78,40 +74,37 @@ const Item = model("Item", itemSchema);
 
 const numerosInitialValue = 20;
 
-
-
 // Endpoint para generar y guardar los elementos
 app.get("/items", async (req, res) => {
   try {
     console.log(`Entro en el try`);
 
-    const existingItems = await Item.find();
-  
-      if (existingItems.length > 0) {
-        // Si ya existen, devuelve los elementos existentes
-        return res.status(200).json(existingItems);
-      }
+    // const existingItems = await Item.find();
 
-    const generateItems = () => {
-        const newItems = [];
-        for (let i = 1; i <= numerosInitialValue; i++) {
-          newItems.push({
-            id: crypto.randomUUID(),
-            value: String(i).padStart(4, "0"),
-            cantidad: 1,
-            precio: 20,
-          });
-        }
-        return newItems;
-      };
+    // if (existingItems.length > 0) {
+    //   return res.status(200).json(existingItems);
+    // }
 
+    // const generateItems = () => {
+    //   const newItems = [];
+    //   for (let i = 1; i <= numerosInitialValue; i++) {
+    //     newItems.push({
+    //       id: crypto.randomUUID(),
+    //       value: String(i).padStart(4, "0"),
+    //       cantidad: 1,
+    //       precio: 20,
+    //     });
+    //   }
+    //   return newItems;
+    // };
 
-     // Genera los elementos
-     const numeross = generateItems();
+    // Genera los elementos
+    // const numeross = generateItems();
     // Guarda los elementos en la base de datos
-    await Item.insertMany(numeross);
-    res.status(200).json(
-      numeross); // Devuelve los elementos generados en formato JSON
+    // await Item.insertMany(numeross);
+    res.status(200).json({
+        message: `Server funcionando`,
+    }); // Devuelve los elementos generados en formato JSON
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensaje: "Error al procesar la solicitud" });
@@ -154,10 +147,9 @@ app.post(
 );
 
 app.get("/api/users", async (req, res) => {
-
   try {
-    const users = await Users.find(); 
-    res.status(201).json(users); 
+    const users = await Users.find();
+    res.status(201).json(users);
   } catch (error) {
     console.error("Error al obtener usuarios:", error);
     res.status(500).json({ message: "Error al obtener usuarios" });
