@@ -110,10 +110,8 @@ app.get("/items", async (req, res) => {
      const numeross = generateItems();
     // Guarda los elementos en la base de datos
     await Item.insertMany(numeross);
-    res.status(200).json({
-      message: `Server funcionando, ${numerosInitialValue} items generados, ${numeross.length} items guardados`,
-      numeross,
-    }); // Devuelve los elementos generados en formato JSON
+    res.status(200).json(
+      numeross); // Devuelve los elementos generados en formato JSON
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensaje: "Error al procesar la solicitud" });
