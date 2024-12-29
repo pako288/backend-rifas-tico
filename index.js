@@ -9,17 +9,17 @@ const PORT = process.env.PORT || 4005;
 
 const app = express();
 
-
 const dbConnection = async () => {
     try {
-       await mongoose.connect(process.env.BD_CNN, {
-      });
-  
-      console.log(`DB Online`);
+        await mongoose.connect(process.env.BD_CNN, {
+        });
+        
+        console.log(`DB Online`);
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  };
+};
+
   
   dbConnection();
   console.log(`DB Online`);
@@ -77,18 +77,7 @@ const itemSchema = Schema({
 const Item = model("Item", itemSchema);
 
 const numerosInitialValue = 20;
-const generateItems = () => {
-    const newItems = [];
-    for (let i = 1; i <= numerosInitialValue; i++) {
-      newItems.push({
-        id: crypto.randomUUID(),
-        value: String(i).padStart(4, "0"),
-        cantidad: 1,
-        precio: 20,
-      });
-    }
-    return newItems;
-  };
+
 
 
 // Endpoint para generar y guardar los elementos
