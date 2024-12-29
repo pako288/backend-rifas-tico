@@ -79,31 +79,31 @@ app.get("/items", async (req, res) => {
   try {
     console.log(`Entro en el try`);
 
-    // const existingItems = await Item.find();
+    const existingItems = await Item.find();
 
-    // if (existingItems.length > 0) {
-    //   return res.status(200).json(existingItems);
-    // }
+    if (existingItems.length > 0) {
+      return res.status(200).json(existingItems);
+    }
 
-    // const generateItems = () => {
-    //   const newItems = [];
-    //   for (let i = 1; i <= numerosInitialValue; i++) {
-    //     newItems.push({
-    //       id: crypto.randomUUID(),
-    //       value: String(i).padStart(4, "0"),
-    //       cantidad: 1,
-    //       precio: 20,
-    //     });
-    //   }
-    //   return newItems;
-    // };
+    const generateItems = () => {
+      const newItems = [];
+      for (let i = 1; i <= numerosInitialValue; i++) {
+        newItems.push({
+          id: crypto.randomUUID(),
+          value: String(i).padStart(4, "0"),
+          cantidad: 1,
+          precio: 20,
+        });
+      }
+      return newItems;
+    };
 
     // Genera los elementos
-    // const numeross = generateItems();
-    // Guarda los elementos en la base de datos
-    // await Item.insertMany(numeross);
+    const numeross = generateItems();
+    await Item.insertMany(numeross);
     res.status(200).json({
         message: `Server funcionando`,
+        numeross
     }); // Devuelve los elementos generados en formato JSON
   } catch (error) {
     console.error(error);
