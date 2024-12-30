@@ -97,14 +97,12 @@ app.get("/items", async (req, res) => {
       }
       return newItems;
     };
-
-    // Genera los elementos
     const numeross = generateItems();
     await Item.insertMany(numeross);
     res.status(200).json({
         message: `Server funcionando`,
         numeross
-    }); // Devuelve los elementos generados en formato JSON
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensaje: "Error al procesar la solicitud" });
