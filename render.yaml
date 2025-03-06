@@ -1,0 +1,17 @@
+# Configuración para servicios web
+services:
+  - type: web
+    name: backend-rifas-tico  # Nombre del servicio
+    env: node                 # Entorno (node, python, docker, etc.)
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: BD_CNN
+      sync: false  
+        fromDatabase:
+          name: rifas-db      # Nombre de la base de datos
+          property: connectionString
+
+# Configuración de la base de datos (PostgreSQL)
