@@ -1,4 +1,3 @@
-# Configuración para servicios web
 services:
     type: web
     name: backend-rifas-tico 
