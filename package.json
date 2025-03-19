@@ -1,7 +1,7 @@
 {
   "name": "segundo-back",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
     "dev": "nodemon index.mjs",
     "start": "node index.mjs"
