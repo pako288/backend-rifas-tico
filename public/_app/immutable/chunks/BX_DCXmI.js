@@ -1,0 +1,1 @@
+import{t,a as e}from"./BLBjSD1j.js";import"./CQRCeh5-.js";var p=t('<p class="svelte-10oie9d">Desarrollado por <strong><a href="https://api.whatsapp.com/send?phone=4126829644&amp;text=Hola%20Pakodev%20quiero%20contactarte%20para" target="_blank" class="svelte-10oie9d">📲 Pako Dev</a></strong> &copy;</p>');function l(a){var o=p();e(a,o)}export{l as P};
